@@ -9,14 +9,15 @@ spec:
   selector:
     matchLabels:
       app: events-web
-  strategy: {}
+  strategy: 
+    type: Recreate
   template:
     metadata:
       labels:
         app: events-web
     spec:
       containers:
-      - image: lmurp14/capstone-frontend:v1.0
+      - image: lmurp14/events-website:latest
         name: events-web
         imagePullPolicy: "Always"
         env:
@@ -29,4 +30,18 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "0.2"
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: events-web
+  name: events-web
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: events-web
+  type: LoadBalancer
