@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "coverage": "sonar-scanner",
     "start": "SERVER=http://localhost:8082 node server.js",
     "test": "SERVER=http://localhost:8082 nyc mocha --exit"
   },
